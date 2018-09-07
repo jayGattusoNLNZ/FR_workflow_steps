@@ -57,11 +57,16 @@ def make_sub_image(image, face_location, my_image, face_fname_path):
 	cv2.imwrite(str(face_fname_path), crop_img)
 
 
+with open("extracted_faces.txt", "w") as data:
+	data.write("source_image|face_image\n")
 for my_image in os.listdir(source_images_folder):
 	my_image_path = os.path.join(source_images_folder, my_image)
 	print ("Working on {}".format(my_image_path))
 	img, faces_in_image = find_face(my_image_path, max_width, max_height)
 
 	for i, face_location in enumerate(faces_in_image):
-		face_fname_path = os.path.join(destination_folder_for_face_extracts, '{}__{}.jpg'.format(my_image, i+1))
+		my_face_fname = '{}__{}.jpg'.format(my_image, i+1)
+		face_fname_path = os.path.join(destination_folder_for_face_extracts, my_face_fname)
 		make_sub_image(img, face_location, my_image, face_fname_path )
+		with open("extracted_faces.txt", "a") as data:
+			data.write("{}|{}\n".format(my_image, my_face_fname))
