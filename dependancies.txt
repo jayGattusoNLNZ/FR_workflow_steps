@@ -1,0 +1,5 @@
+=> python 3.6 
+Python will break things
+python <3.6 might break things
+
+https://pypi.org/project/face_recognition/ installed and tested/working
